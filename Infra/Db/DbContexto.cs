@@ -19,7 +19,7 @@ public class DbContexto : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>().HasData(
-            new User { Id = 1, Name = "admin", Email = "admin@example.com", Password = "123", Profile = ProfileType.ADMIN }
+            new User { Id = 1, Name = "admin", Email = "admin@example.com", Password = "123", Profile = ProfileType.ADMIN.ToString() }
         );
     }
 

@@ -22,5 +22,5 @@ public class User
     public string Password { get; set; } = default!;
 
     [StringLength(10)]
-    public ProfileType Profile { get; set; } = default!; // e.g., "ADMIN", "USER"
+    public string Profile { get; set; } = default!; // e.g., "ADMIN", "USER"
 }

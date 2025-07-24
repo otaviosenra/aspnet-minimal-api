@@ -19,6 +19,5 @@ public class UserDTO
 
 
     [Required]
-    [StringLength(10)]
     public ProfileType Profile { get; set; } = default!; // e.g., "ADMIN", "USER"
 }

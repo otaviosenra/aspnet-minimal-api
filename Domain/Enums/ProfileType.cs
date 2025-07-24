@@ -1,9 +1,8 @@
 
-namespace MinimalApi.Domain.Enums
+namespace MinimalApi.Domain.Enums;
+public enum ProfileType
 {
-    public enum ProfileType
-    {
-        ADMIN = 1,
-        USER = 2
-    }
+    ADMIN,
+    USER
 }
+    
