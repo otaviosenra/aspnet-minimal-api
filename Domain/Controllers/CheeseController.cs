@@ -57,7 +57,7 @@ namespace AspNetMinimalApi.Domain.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Cheese>> CreateCheese([FromBody] CheeseDTO dto)
+        public async Task<ActionResult<CheeseDTO>> CreateCheese([FromBody] CheeseDTO dto)
         {
             if (!ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace AspNetMinimalApi.Domain.Controllers
 
             await _service.CreateCheese(cheese);
 
-            return CreatedAtAction(nameof(GetCheese), new { id = cheese.Id }, cheese);
+            return CreatedAtAction(nameof(GetCheese), new { id = cheese.Id }, dto);
         }
 
 

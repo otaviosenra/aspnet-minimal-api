@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MinimalApi.Domain.Entities;
+using MinimalApi.Domain.Enums;
 
 namespace MinimalApi.Infra.Db;
 
@@ -18,7 +19,7 @@ public class DbContexto : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>().HasData(
-            new User { Id = 1, Name = "admin", Email = "admin@example.com", Password = "123", Profile = "ADMIN" }
+            new User { Id = 1, Name = "admin", Email = "admin@example.com", Password = "123", Profile = ProfileType.ADMIN }
         );
     }
 
