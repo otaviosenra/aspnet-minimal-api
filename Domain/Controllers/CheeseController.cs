@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MinimalApi.Domain.DTOs;
 using MinimalApi.Domain.Entities;
 using MinimalApi.Domain.Services;
 
@@ -17,10 +18,12 @@ namespace AspNetMinimalApi.Domain.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Cheese>>> GetCheeses(int page = 1, int pageSize = 10)
+        public async Task<ActionResult<List<CheeseDTO>>> GetCheeses(int page = 1, int pageSize = 10)
         {
-            var cheeses = await _service.GetAllCheeses(page, pageSize);
-            return Ok(cheeses);
+            List<Cheese> cheeses = await _service.GetAllCheeses(page, pageSize);
+            List<CheeseDTO> dtos = cheeses.Select(c => new CheeseDTO { Type = c.Type,  Quantity = c.Quantity, Price = c.Price }).ToList();
+
+            return Ok(dtos);
         }
 
   
@@ -28,16 +31,26 @@ namespace AspNetMinimalApi.Domain.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cheese>> GetCheese(int id)
+        public async Task<ActionResult<CheeseDTO>> GetCheese(int id)
         {
-            var cheese = await _service.GetCheeseById(id);
+            try
+            {
+                Cheese? cheese = await _service.GetCheeseById(id);
+            
+                CheeseDTO dto = new CheeseDTO
+                {
+                    Type = cheese!.Type,
+                    Quantity = cheese!.Quantity,
+                    Price = cheese!.Price
+                };
 
-            if (cheese == null)
+                return Ok(dto);
+            }
+            catch (KeyNotFoundException)
             {
                 return NotFound(new { message = $"Queijo com ID {id} não encontrado." });
             }
 
-            return Ok(cheese);
         }
 
 
@@ -45,12 +58,19 @@ namespace AspNetMinimalApi.Domain.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Cheese>> CreateCheese([FromBody] Cheese cheese)
+        public async Task<ActionResult<Cheese>> CreateCheese([FromBody] CheeseDTO dto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            Cheese cheese = new Cheese
+            {
+                Type = dto.Type,
+                Quantity = dto.Quantity,
+                Price = dto.Price
+            };
 
             await _service.CreateCheese(cheese);
 
@@ -60,95 +80,53 @@ namespace AspNetMinimalApi.Domain.Controllers
 
 
 
-        // [HttpPut("{id}")]
-        // public async Task<IActionResult> UpdateCheese(int id, [FromBody] Cheese cheese)
-        // {
-        //     if (id != cheese.Id)
-        //     {
-        //         return BadRequest(new { message = "ID do parâmetro não confere com ID do objeto." });
-        //     }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCheese(int id, [FromBody] CheeseDTO dto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-        //     if (!ModelState.IsValid)
-        //     {
-        //         return BadRequest(ModelState);
-        //     }
+                Cheese cheeseEntity = new Cheese
+                {
+                    Id = id,
+                    Type = dto.Type,
+                    Quantity = dto.Quantity,
+                    Price = dto.Price
+                };
 
-        //     var existingCheese = await _service.Cheeses.FindAsync(id);
-        //     if (existingCheese == null)
-        //     {
-        //         return NotFound(new { message = $"Queijo com ID {id} não encontrado." });
-        //     }
+                await _service.UpdateCheese(cheeseEntity);
+                return Ok(new { message = $"Queijo '{dto.Type}' atualizado com sucesso." });
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound(new { message = $"Queijo com ID {id} não encontrado." });
+            }
 
-        //     existingCheese.Type = cheese.Type;
-        //     existingCheese.Quantity = cheese.Quantity;
-        //     existingCheese.Price = cheese.Price;
-
-        //     try
-        //     {
-        //         await _service.SaveChangesAsync();
-        //     }
-        //     catch (DbUpdateConcurrencyException)
-        //     {
-        //         if (!CheeseExists(id))
-        //         {
-        //             return NotFound();
-        //         }
-        //         throw;
-        //     }
-
-        //     return Ok(existingCheese);
-        // }
+        }
 
 
 
-        // [HttpDelete("{id}")]
-        // public async Task<IActionResult> DeleteCheese(int id)
-        // {
-        //     var cheese = await _service.Cheeses.FindAsync(id);
-        //     if (cheese == null)
-        //     {
-        //         return NotFound(new { message = $"Queijo com ID {id} não encontrado." });
-        //     }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCheese(int id)
+        {
+            try
+            {
+                Cheese? cheese = await _service.GetCheeseById(id);
+                await _service.DeleteCheese(id);
+                return Ok(new { message = $"Queijo '{cheese!.Type}' removido com sucesso." });
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound(new { message = $"Queijo com ID {id} não encontrado." });
+            }
 
-        //     _service.Cheeses.Remove(cheese);
-        //     await _service.SaveChangesAsync();
 
-        //     return Ok(new { message = $"Queijo '{cheese.Type}' removido com sucesso." });
-        // }
+        }
 
        
-
-
-        // [HttpGet("search")]
-        // public async Task<ActionResult<IEnumerable<Cheese>>> SearchCheeses([FromQuery] string name)
-        // {
-        //     if (string.IsNullOrWhiteSpace(name))
-        //     {
-        //         return BadRequest(new { message = "Parâmetro 'name' é obrigatório." });
-        //     }
-
-        //     var cheeses = await _service.Cheeses
-        //         .Where(c => c.Type.Contains(name))
-        //         .ToListAsync();
-
-        //     return Ok(cheeses);
-        // }
-
-
-
-        // [HttpGet("type/{type}")]
-        // public async Task<ActionResult<IEnumerable<Cheese>>> GetCheesesByType(string type)
-        // {
-        //     var cheeses = await _service.Cheeses
-        //         .Where(c => c.Type.ToLower() == type.ToLower())
-        //         .ToListAsync();
-
-        //     return Ok(cheeses);
-        // }
-
-        // private bool CheeseExists(int id)
-        // {
-        //     return _service.Cheeses.Any(e => e.Id == id);
-        // }
     }
 }
