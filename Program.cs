@@ -1,9 +1,7 @@
 using MinimalApi.Infra.Db;
-using MinimalApi.Domain.DTOs;
 using Microsoft.EntityFrameworkCore;
 using MinimalApi.Domain.Services;
 using MinimalApi.Domain.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,13 +22,13 @@ builder.Services.AddDbContext<DbContexto>(options => {
 var app = builder.Build();
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sua API V1");
+    c.RoutePrefix = string.Empty; // Faz com que o swagger abra na rota raiz
+});
 
 app.MapControllers();
-
-app.MapGet("/", () => app.MapSwagger());
-
-// app.MapPost("/login",  );
 
 app.Run();
 
