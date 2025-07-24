@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -30,13 +30,7 @@ app.MapControllers();
 
 app.MapGet("/", () => app.MapSwagger());
 
-app.MapPost("/login",  async ([FromBody] LoginDTO loginDTO, IUserService userService) =>
-{
-    if (await userService.Login(loginDTO))
-        return Results.Ok("Login successful");
-    else
-        return Results.Unauthorized();
-});
+// app.MapPost("/login",  );
 
 app.Run();
 

@@ -5,11 +5,11 @@ using MinimalApi.Infra.Db;
 
 namespace MinimalApi.Domain.Services;
 
-public class UserService : IUserService
+public class LoginService : ILoginService
 {
     private readonly DbContexto _context;
 
-    public UserService(DbContexto context)
+    public LoginService(DbContexto context)
     {
         _context = context;
     }
