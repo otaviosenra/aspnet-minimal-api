@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using MinimalApi.Domain.Entities;
 using MinimalApi.Domain.Interfaces;
 using MinimalApi.Infra.Db;
@@ -13,19 +14,18 @@ public class CheeseService : ICheeseService
         _context = context;
     }
 
-   
 
-    public List<Cheese> GetAllCheeses(int page = 1, int pageSize = 10)
+    public async Task<List<Cheese>> GetAllCheeses(int page = 1, int pageSize = 10)
     {
 
-        var allCheeses = _context.Cheeses.ToList();
+        var allCheeses = await _context.Cheeses.ToListAsync();
 
         return allCheeses.Skip((page - 1) * pageSize).Take(pageSize).ToList();
     }
 
-    public Cheese? GetCheeseById(int id)
+    public async Task<Cheese?> GetCheeseById(int id)
     {
-        Cheese? cheese = _context.Cheeses.Where(c => c.Id == id).FirstOrDefault();
+        Cheese? cheese = await _context.Cheeses.Where(c => c.Id == id).FirstOrDefaultAsync();
 
         if (cheese == null)
         {
@@ -33,9 +33,9 @@ public class CheeseService : ICheeseService
         }
         return cheese;
     }
-    public void UpdateCheese(Cheese cheese)
+    public async Task UpdateCheese(Cheese cheese)
     {
-        Cheese? existingCheese = _context.Cheeses.Where(c => c.Id == cheese.Id).FirstOrDefault();
+        Cheese? existingCheese = await _context.Cheeses.Where(c => c.Id == cheese.Id).FirstOrDefaultAsync();
 
         if (existingCheese != null)
         {
@@ -49,14 +49,14 @@ public class CheeseService : ICheeseService
             throw new KeyNotFoundException("Cheese not found");
         }
     }
-    public void DeleteCheese(int id)
+    public async Task DeleteCheese(int id)
     {
-        Cheese? cheese = _context.Cheeses.Where(c => c.Id == id).FirstOrDefault();
+        Cheese? cheese = await _context.Cheeses.Where(c => c.Id == id).FirstOrDefaultAsync();
 
         if (cheese != null)
         {
             _context.Cheeses.Remove(cheese);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
         else
         {
@@ -64,9 +64,9 @@ public class CheeseService : ICheeseService
         }
     }
 
-    public void CreateCheese(Cheese cheese)
+    public async Task CreateCheese(Cheese cheese)
     {
-        _context.Cheeses.Add(cheese);
-        _context.SaveChanges();
+        await _context.Cheeses.AddAsync(cheese);
+        await _context.SaveChangesAsync();
     }
 }

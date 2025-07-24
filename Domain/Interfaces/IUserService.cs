@@ -5,5 +5,5 @@ namespace MinimalApi.Domain.Interfaces;
 
 public interface IUserService
 {
-    bool Login(LoginDTO loginDTO);
+    Task<bool> Login(LoginDTO loginDTO);
 }

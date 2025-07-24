@@ -13,6 +13,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddControllers();
+
 builder.Services.AddDbContext<DbContexto>(options => {
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("sqlserver")
@@ -24,11 +26,13 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapGet("/", () => "Hello World!");
+app.MapControllers();
 
-app.MapPost("/login",  ([FromBody] LoginDTO loginDTO, IUserService userService) =>
+app.MapGet("/", () => app.MapSwagger());
+
+app.MapPost("/login",  async ([FromBody] LoginDTO loginDTO, IUserService userService) =>
 {
-    if (userService.Login(loginDTO))
+    if (await userService.Login(loginDTO))
         return Results.Ok("Login successful");
     else
         return Results.Unauthorized();

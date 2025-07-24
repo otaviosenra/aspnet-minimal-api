@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using MinimalApi.Domain.DTOs;
 using MinimalApi.Domain.Interfaces;
 using MinimalApi.Infra.Db;
@@ -13,9 +14,9 @@ public class UserService : IUserService
         _context = context;
     }
 
-    public bool Login(LoginDTO loginDTO)
+    public async Task<bool> Login(LoginDTO loginDTO)
     {
-        var qtd = _context.Users.Where(u => u.Name == loginDTO.Username && u.Password == loginDTO.Password).Count();
+        var qtd = await _context.Users.Where(u => u.Name == loginDTO.Username && u.Password == loginDTO.Password).CountAsync();
         return (qtd > 0);
     }
 
