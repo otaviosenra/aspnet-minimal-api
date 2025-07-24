@@ -2,6 +2,7 @@ using MinimalApi.Infra.Db;
 using Microsoft.EntityFrameworkCore;
 using MinimalApi.Domain.Services;
 using MinimalApi.Domain.Interfaces;
+using MinimalApi.Domain.Utils;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ILoginService, LoginService>();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.UseInlineDefinitionsForEnums(); 
+    options.SchemaFilter<EnumSchemaFilter>(); 
+});
+
 
 builder.Services.AddControllers();
 

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using MinimalApi.Domain.Enums;
 
 namespace MinimalApi.Domain.DTOs;
@@ -19,5 +20,6 @@ public class UserDTO
 
 
     [Required]
-    public ProfileType Profile { get; set; } = default!; // e.g., "ADMIN", "USER"
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public ProfileType Profile { get; set; } = ProfileType.USER; //  "ADMIN", "USER"
 }
