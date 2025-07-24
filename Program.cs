@@ -34,7 +34,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sua API V1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Minimal API V1");
     c.RoutePrefix = string.Empty; // Faz com que o swagger abra na rota raiz
 });
 
