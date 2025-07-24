@@ -22,7 +22,7 @@ public class DbContexto : DbContext
         );
     }
 
-    protected override void OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder optionsBuilder)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var connectionString = _configuration.GetConnectionString("sqlserver");
         if (string.IsNullOrEmpty(connectionString))
