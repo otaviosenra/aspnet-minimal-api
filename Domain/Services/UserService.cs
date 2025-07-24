@@ -21,7 +21,9 @@ public class UserService : IUserService
         List<User> allUsers = await _context.Users.ToListAsync();
         return allUsers.Skip((page - 1) * pageSize).Take(pageSize).ToList();
     }
-    public async Task<User?> GetUserById(int id){
+    
+    public async Task<User?> GetUserById(int id)
+    {
         User? user = await _context.Users.Where(c => c.Id == id).FirstOrDefaultAsync();
 
         if (user == null)

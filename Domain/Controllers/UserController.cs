@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MinimalApi.Domain.DTOs;
 using MinimalApi.Domain.Entities;
 using MinimalApi.Domain.Enums;
-using MinimalApi.Domain.Services;
+using MinimalApi.Domain.Interfaces;
 
 namespace AspNetMinimalApi.Domain.Controllers
 {
@@ -10,9 +10,9 @@ namespace AspNetMinimalApi.Domain.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly UserService _service;
+        private readonly IUserService _service;
 
-        public UserController(UserService service)
+        public UserController(IUserService service)
         {
             _service = service;
         }

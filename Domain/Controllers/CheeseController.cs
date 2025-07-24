@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MinimalApi.Domain.DTOs;
 using MinimalApi.Domain.Entities;
-using MinimalApi.Domain.Services;
+using MinimalApi.Domain.Interfaces;
 
 namespace AspNetMinimalApi.Domain.Controllers
 {
@@ -9,9 +9,9 @@ namespace AspNetMinimalApi.Domain.Controllers
     [Route("api/[controller]")]
     public class CheeseController : ControllerBase
     {
-        private readonly CheeseService _service;
+        private readonly ICheeseService _service;
 
-        public CheeseController(CheeseService service)
+        public CheeseController(ICheeseService service)
         {
             _service = service;
         }

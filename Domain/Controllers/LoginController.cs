@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MinimalApi.Domain.DTOs;
+using MinimalApi.Domain.Interfaces;
 using MinimalApi.Domain.Services;
 
 namespace AspNetMinimalApi.Domain.Controllers
@@ -9,9 +10,9 @@ namespace AspNetMinimalApi.Domain.Controllers
     public class LoginController : ControllerBase
     {
 
-        private readonly LoginService _service;
+        private readonly ILoginService _service;
 
-        public LoginController(LoginService service)
+        public LoginController(ILoginService service)
         {
             _service = service;
         }

@@ -7,7 +7,10 @@ using MinimalApi.Domain.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
 builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<ICheeseService, CheeseService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -19,7 +22,6 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 
-builder.Services.AddControllers();
 
 builder.Services.AddDbContext<DbContexto>(options => {
     options.UseSqlServer(
