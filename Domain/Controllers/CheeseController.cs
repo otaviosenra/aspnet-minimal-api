@@ -26,8 +26,6 @@ namespace AspNetMinimalApi.Domain.Controllers
         }
 
   
-  
-
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CheeseDTO>> GetCheese(int id)

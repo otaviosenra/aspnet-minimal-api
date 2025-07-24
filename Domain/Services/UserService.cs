@@ -44,6 +44,7 @@ public class UserService : IUserService
         if (existingUser != null)
         {
             existingUser.Name = user.Name;
+            existingUser.Password = user.Password;
             existingUser.Email = user.Email;
             existingUser.Profile = user.Profile;
             await _context.SaveChangesAsync();
