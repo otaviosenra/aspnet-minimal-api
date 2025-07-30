@@ -1,30 +1,34 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MinimalApi.Domain.DTOs;
 using MinimalApi.Domain.Interfaces;
-using MinimalApi.Domain.Services;
 
 namespace AspNetMinimalApi.Domain.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class LoginController : ControllerBase
     {
 
         private readonly ILoginService _service;
+
 
         public LoginController(ILoginService service)
         {
             _service = service;
         }
 
-
-        [HttpGet]
-        public async Task<IActionResult> GetLogin ([FromBody] LoginDTO loginDTO)
+        [HttpPost]
+        public async Task<IActionResult> PostLogin([FromBody] LoginDTO loginDTO)
         {
             try
             {
                 if (await _service.Login(loginDTO))
-                    return Ok("Login successful");
+                {
+                    UsuarioLogado user = _service.LogarUsuario(loginDTO);
+                    return Ok(user);
+                }
                 else
                     return Unauthorized(new { message = "Invalid username or password" });
             }

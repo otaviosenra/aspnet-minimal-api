@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MinimalApi.Domain.DTOs;
 using MinimalApi.Domain.Entities;
@@ -7,6 +8,7 @@ namespace AspNetMinimalApi.Domain.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class CheeseController : ControllerBase
     {
         private readonly ICheeseService _service;
@@ -20,12 +22,12 @@ namespace AspNetMinimalApi.Domain.Controllers
         public async Task<ActionResult<List<CheeseDTO>>> GetCheeses(int page = 1, int pageSize = 10)
         {
             List<Cheese> cheeses = await _service.GetAllCheeses(page, pageSize);
-            List<CheeseDTO> dtos = cheeses.Select(c => new CheeseDTO { Type = c.Type,  Quantity = c.Quantity, Price = c.Price }).ToList();
+            List<CheeseDTO> dtos = cheeses.Select(c => new CheeseDTO { Type = c.Type, Quantity = c.Quantity, Price = c.Price }).ToList();
 
             return Ok(dtos);
         }
 
-  
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CheeseDTO>> GetCheese(int id)
@@ -33,7 +35,7 @@ namespace AspNetMinimalApi.Domain.Controllers
             try
             {
                 Cheese? cheese = await _service.GetCheeseById(id);
-            
+
                 CheeseDTO dto = new CheeseDTO
                 {
                     Type = cheese!.Type,
@@ -124,6 +126,6 @@ namespace AspNetMinimalApi.Domain.Controllers
 
         }
 
-       
+
     }
 }

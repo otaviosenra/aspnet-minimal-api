@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MinimalApi.Domain.DTOs;
 using MinimalApi.Domain.Entities;
@@ -8,6 +9,7 @@ namespace AspNetMinimalApi.Domain.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
@@ -28,8 +30,8 @@ namespace AspNetMinimalApi.Domain.Controllers
             return Ok(dtos);
         }
 
-  
-  
+
+
 
 
         [HttpGet("{id}")]
@@ -38,7 +40,7 @@ namespace AspNetMinimalApi.Domain.Controllers
             try
             {
                 User? user = await _service.GetUserById(id);
-            
+
                 UserDTO dto = new UserDTO
                 {
                     Name = user!.Name,

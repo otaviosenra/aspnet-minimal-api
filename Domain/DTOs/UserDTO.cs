@@ -9,7 +9,7 @@ public class UserDTO
     [Required]
     [StringLength(50, MinimumLength = 3)]
     public string Password { get; set; } = default!;
-    
+
     [Required]
     [StringLength(50)]
     public string Name { get; set; } = default!;
@@ -22,4 +22,6 @@ public class UserDTO
     [Required]
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public ProfileType Profile { get; set; } = ProfileType.USER; //  "ADMIN", "USER"
+    
+    public string Token { get; set; } = default!;
 }
