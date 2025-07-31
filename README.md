@@ -3,8 +3,8 @@
 Projeto exemplo de API mínima com autenticação via JWT, Entity Framework Core e testes automatizados usando MSTest.
 
 ![.NET Version](https://img.shields.io/badge/.NET-8.0-blueviolet)
+
 ![Tests](https://img.shields.io/badge/tests-passing-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-blue)
 
 ---
 
