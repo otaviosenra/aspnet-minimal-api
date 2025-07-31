@@ -24,7 +24,7 @@ Projeto exemplo de API mínima com autenticação via JWT, Entity Framework Core
 ### ✅ Pré-requisitos
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- (Opcional) SQL Server
+- SQL Server (Se quiser configurar outro banco, é só realizar os devidos ajustes)
 - Git instalado
 
 ---
@@ -46,7 +46,8 @@ dotnet build
 dotnet run --project API
 ```
 
-A API estará acessível em: `https://localhost:5001` ou `http://localhost:5000`
+Pode abrir direto pelo navegador, o Swagger está disponível direto na raiz
+A API estará acessível em: `https://localhost:5230`
 
 ---
 
@@ -65,22 +66,16 @@ No projeto da API, edite o arquivo `appsettings.json` com suas configurações:
 
 ```json
 "Jwt": {
-  "Key": "sua-chave-secreta-aqui"
+  "Key": "ajuste-sua-chave-secreta-aqui-como-voce-preferir"
 },
 "ConnectionStrings": {
-  "DefaultConnection": "Server=localhost;Database=SuaDb;Trusted_Connection=True;"
+  "DefaultConnection": "Server=O_SERVIDOR_QUE_FOR_USAR;Database=SUA_DATABASE;Trusted_Connection=True;"
 }
 ```
 
 ---
 
-## 📄 Endpoints
 
-Acesse a documentação interativa via Swagger:
-
-```
-https://localhost:5001/swagger
-```
 
 ---
 
