@@ -42,7 +42,7 @@ public class CheeseServiceTest
     {
         // Arrange
         var context = CriarContexto();
-        await context.Database.ExecuteSqlRawAsync("DELETE FROM Cheeses WHERE Name = 'QueijoTestExample'");
+        await context.Database.ExecuteSqlRawAsync("DELETE FROM Cheeses WHERE Type = 'QueijoTestExample'");
 
         var cheeseService = new CheeseService(context);
 
@@ -142,12 +142,13 @@ public class CheeseServiceTest
         var typeTest = RandomString() + "CheddarExampleTest";
         var quantityTest = new Random().Next(1, 100);
         var priceTest = new Random().Next(1, 100) + 0.99m;
+
         var cheese = new Cheese
         {
             Id = 1,
             Type = typeTest,
             Quantity = quantityTest,
-            Price = 6.99m
+            Price = priceTest
         };
 
 

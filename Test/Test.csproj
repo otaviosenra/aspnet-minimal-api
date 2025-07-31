@@ -7,13 +7,17 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.7" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
     <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\API\minimal-api.csproj" />
+    <ProjectReference Include="..\API\minimal-api.csproj" >
+      <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>
