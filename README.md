@@ -61,7 +61,7 @@ dotnet test
 
 ## ⚙️ Configuração do appsettings.json
 
-No projeto da API, edite o arquivo `appsettings.json` com suas configurações:
+No projeto da API, edite o arquivo `appsettings.json` com suas configurações, no caso do ConnectionStrings segue o exemplo para SQL Server:
 
 ```json
 "Jwt": {
