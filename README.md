@@ -46,8 +46,7 @@ dotnet build
 dotnet run --project API
 ```
 
-Pode abrir direto pelo navegador, o Swagger está disponível direto na raiz
-A API estará acessível em: `https://localhost:5230`
+Pode abrir direto pelo navegador, o Swagger está disponível direto na raiz. A API estará acessível em: `https://localhost:5230`
 
 ---
 
@@ -73,28 +72,7 @@ No projeto da API, edite o arquivo `appsettings.json` com suas configurações:
 }
 ```
 
----
 
-
-
----
-
-## 📁 Estrutura do Projeto
-
-```
-├── API/                 # Projeto principal da API
-│   ├── Controllers/
-│   ├── Services/
-│   ├── Program.cs
-│   └── appsettings.json
-│
-├── Test/                # Projeto de testes
-│   └── LoginRequestTest.cs
-│
-├── aspnet-minimal-api.sln
-```
-
----
 
 ## 🤝 Contribuições
 
