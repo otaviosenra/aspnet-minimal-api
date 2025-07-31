@@ -1,7 +1,7 @@
 
+using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
-using MinimalApi;
 using MinimalApi.Domain.DTOs;
 
 namespace Test.Domain.Requests
@@ -33,7 +33,7 @@ namespace Test.Domain.Requests
             var response = await _client.PostAsync("/api/login", content);
 
             // Assert
-            Assert.IsTrue(response.IsSuccessStatusCode, "Expected success status code but got: " + response.StatusCode);
+            Assert.IsFalse(response.StatusCode > HttpStatusCode.IMUsed || response.StatusCode < HttpStatusCode.OK, "Expected success status code but got: " + response.StatusCode);
         }
     }
 }

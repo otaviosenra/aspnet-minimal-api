@@ -30,7 +30,7 @@ public class CheeseController : ControllerBase
 
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<CheeseDTO>> GetCheese(int id)
+    public async Task<ActionResult<CheeseDTO>> GetCheeseById(int id)
     {
         try
         {
@@ -70,7 +70,7 @@ public class CheeseController : ControllerBase
 
         await _service.CreateCheese(cheese);
 
-        return CreatedAtAction(nameof(GetCheese), new { id = cheese.Id }, dto);
+        return CreatedAtAction(nameof(GetCheeseById), new { id = cheese.Id }, dto);
     }
 
 
