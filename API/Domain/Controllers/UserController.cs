@@ -9,7 +9,7 @@ namespace AspNetMinimalApi.Domain.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Roles = "ADMIN")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
@@ -25,7 +25,13 @@ namespace AspNetMinimalApi.Domain.Controllers
         public async Task<ActionResult<List<UserDTO>>> GetUsers(int page = 1, int pageSize = 10)
         {
             List<User> users = await _service.GetAllUsers(page, pageSize);
-            List<UserDTO> dtos = users.Select(c => new UserDTO { Email = c.Email, Name = c.Name, Profile = Enum.Parse<ProfileType>(c.Profile), Password = c.Password }).ToList();
+            List<UserDTO> dtos = users.Select(c => new UserDTO
+            {
+                Email = c.Email,
+                Name = c.Name,
+                Profile = Enum.Parse<ProfileType>(c.Profile),
+                Password = c.Password
+            }).ToList();
 
             return Ok(dtos);
         }

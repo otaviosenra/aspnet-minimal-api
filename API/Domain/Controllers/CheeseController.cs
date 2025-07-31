@@ -8,7 +8,7 @@ namespace AspNetMinimalApi.Domain.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Roles = "ADMIN,USER")]
     public class CheeseController : ControllerBase
     {
         private readonly ICheeseService _service;

@@ -42,7 +42,8 @@ public class LoginService : ILoginService
             Subject = new ClaimsIdentity(new List<Claim>
             {
                 new Claim("Email", user.Email),
-                new Claim("Role", user.Profile)
+                new Claim("Perfil", user.Profile),
+                new Claim(ClaimTypes.Role, user.Profile)
             }),
             Expires = DateTime.UtcNow.AddHours(4),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
