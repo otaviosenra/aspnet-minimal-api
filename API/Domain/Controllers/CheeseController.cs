@@ -53,9 +53,6 @@ namespace AspNetMinimalApi.Domain.Controllers
         }
 
 
-
-
-
         [HttpPost]
         public async Task<ActionResult<CheeseDTO>> CreateCheese([FromBody] CheeseDTO dto)
         {
@@ -109,22 +106,22 @@ namespace AspNetMinimalApi.Domain.Controllers
 
 
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCheese(int id)
-        {
-            try
-            {
-                Cheese? cheese = await _service.GetCheeseById(id);
-                await _service.DeleteCheese(id);
-                return Ok(new { message = $"Queijo '{cheese!.Type}' removido com sucesso." });
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound(new { message = $"Queijo com ID {id} não encontrado." });
-            }
+        // [HttpDelete("{id}")]
+        // public async Task<IActionResult> DeleteCheese(int id)
+        // {
+        //     try
+        //     {
+        //         Cheese? cheese = await _service.GetCheeseById(id);
+        //         await _service.DeleteCheese(id);
+        //         return Ok(new { message = $"Queijo '{cheese!.Type}' removido com sucesso." });
+        //     }
+        //     catch (KeyNotFoundException)
+        //     {
+        //         return NotFound(new { message = $"Queijo com ID {id} não encontrado." });
+        //     }
 
 
-        }
+        // }
 
 
     }

@@ -123,21 +123,21 @@ namespace AspNetMinimalApi.Domain.Controllers
 
 
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
-        {
-            try
-            {
-                User? user = await _service.GetUserById(id);
-                await _service.DeleteUser(id);
-                return Ok(new { message = $"Usuário '{user!.Name}' removido com sucesso." });
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound(new { message = $"Usuário com ID {id} não encontrado." });
-            }
+        // [HttpDelete("{id}")]
+        // public async Task<IActionResult> DeleteUser(int id)
+        // {
+        //     try
+        //     {
+        //         User? user = await _service.GetUserById(id);
+        //         await _service.DeleteUser(id);
+        //         return Ok(new { message = $"Usuário '{user!.Name}' removido com sucesso." });
+        //     }
+        //     catch (KeyNotFoundException)
+        //     {
+        //         return NotFound(new { message = $"Usuário com ID {id} não encontrado." });
+        //     }
 
 
-        }
+        // }
     }
 }
