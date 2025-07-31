@@ -72,7 +72,7 @@ No projeto da API, edite o arquivo `appsettings.json` com suas configurações:
 }
 ```
 
-
+---
 
 ## 🤝 Contribuições
 
